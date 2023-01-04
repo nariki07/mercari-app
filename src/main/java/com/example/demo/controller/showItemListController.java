@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,20 +33,6 @@ public class ShowItemListController {
 	public String showItem(Model model) {
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-
-		/*
-		 * // Menに紐づく中カテゴリリスト. List<Category> mediumCategoryList =
-		 * showItemListService.showMediumCategoryList();
-		 * model.addAttribute("mediumCategoryList", mediumCategoryList); //
-		 * 中カテゴリのリストを格納.
-		 */
-		
-		/*
-		 * // Men/Topsに紐づくカテゴリリスト. List<Category> smallCategoryList =
-		 * showItemListService.showSmallCategoryList();
-		 * model.addAttribute("smallCategoryList", smallCategoryList); // 小カテゴリのリストを格納.
-		 */		
-		
 		return "list";
 	}
 
