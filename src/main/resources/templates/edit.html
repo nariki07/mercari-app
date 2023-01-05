@@ -42,7 +42,7 @@
 
   <!-- details -->
   <div id="input-main" class="container">
-    <a type="button" class="btn btn-default" th:href="@{/detail/}"><i class="fa fa-reply"></i> back</a>
+    <a type="button" class="btn btn-default" th:href="@{/detail/?itemId=} + ${item.id}"><i class="fa fa-reply"></i> back</a>
     <h2>Edit</h2>
 
     <!-- edit form -->
@@ -52,6 +52,8 @@
           <label for="inputName" class="col-sm-2 control-label">name</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}"/>
+                    	<div th:errors="*{name}" style="color: red" class="error-messages"></div>
+         
           </div>
         </div>
         <!-- price -->
@@ -59,6 +61,7 @@
           <label for="price" class="col-sm-2 control-label">price</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" id="price" name="price" th:field="*{price}"/>
+          	<div th:errors="*{price}" style="color: red" class="error-messages"></div>
           </div>
         </div>
         <!-- category -->
@@ -85,6 +88,8 @@
           <div class="col-sm-8">
             <select class="form-control" id="smallCategory" name="category">
 					</select>
+			<div th:errors="*{category}" style="color: red"
+						class="error-messages"></div>
           </div>
         </div>
         <!-- brand -->
@@ -92,6 +97,8 @@
           <label for="brand" class="col-sm-2 control-label">brand</label>
           <div class="col-sm-8">
             <input type="text" id="brand" class="form-control" name="brand" th:field="*{brand}"/>
+          	<div th:errors="*{brand}" style="color: red" class="error-messages"></div>
+          
           </div>
         </div>
         <!-- condition -->
@@ -105,15 +112,26 @@
               <input type="radio" name="conditionId" id="condition2" value="2"/> 2
             </label>
             <label for="condition3" class="radio-inline">
-              <input type="radio" name="conditionId" id="condition3" value="3"/> 3
+              <input type="radio" name="conditionId" id="condition3" value="3" th:field="*{conditionId}"/> 3
+            	
             </label>
           </div>
         </div>
+        <div class="form-group">
+				<label for="category" class="col-sm-2 control-label"></label>
+				<div class="col-sm-8">
+					<div th:errors="*{conditionId}" style="color: red"
+						class="error-messages"></div>
+				</div>
+			</div>
         <!-- description -->
         <div class="form-group">
           <label for="description" class="col-sm-2 control-label">description</label>
           <div class="col-sm-8">
             <textarea name="description" id="description" class="form-control" rows="5" th:field="*{description}"></textarea>
+          <div th:errors="*{description}" style="color: red"
+						class="error-messages"></div>
+          
           </div>
         </div>
         <!-- submit button -->

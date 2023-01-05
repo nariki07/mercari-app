@@ -6,6 +6,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +53,11 @@ public class ItemEditController {
 	}
 	
 	@PostMapping("update")
-	public String update(InsertItemForm insertItemForm,Model model,Integer itemId) {
+	public String update(@Validated InsertItemForm insertItemForm,BindingResult result,Model model,Integer itemId) {
+		if(result.hasErrors()) {
+			return edit(insertItemForm,model,itemId);
+		}
+		
 		Item item = new Item();
 		System.out.println(insertItemForm.toString());
 		BeanUtils.copyProperties(insertItemForm, item);
