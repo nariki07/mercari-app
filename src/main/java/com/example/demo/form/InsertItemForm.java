@@ -1,5 +1,8 @@
 package com.example.demo.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+
 /**
  * 商品情報を受け取るフォームクラス.
  * 
@@ -9,16 +12,22 @@ package com.example.demo.form;
 public class InsertItemForm {
 
 	/* 商品名 */
+	@NotBlank(message = "error:may not be empty")
 	private String name;
 	/* 価格 */
-	private double price;
+	@NotBlank(message = "error:may not be empty")
+	private String price;
 	/* カテゴリ */
-	private Integer category;
+	@NotBlank(message = "error:may not be empty")
+	private String category;
 	/* ブランド名 */
+	@NotBlank(message = "error:may not be empty")
 	private String brand;
 	/* 状態 */
-	private Integer conditionId;
+	@NotEmpty(message = "error:may not be empty")
+	private String conditionId;
 	/* 説明 */
+	@NotBlank(message = "error:may not be empty")
 	private String description;
 
 	public String getName() {
@@ -29,19 +38,19 @@ public class InsertItemForm {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public Integer getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
@@ -53,11 +62,11 @@ public class InsertItemForm {
 		this.brand = brand;
 	}
 
-	public Integer getConditionId() {
+	public String getConditionId() {
 		return conditionId;
 	}
 
-	public void setConditionId(Integer conditionId) {
+	public void setConditionId(String conditionId) {
 		this.conditionId = conditionId;
 	}
 
@@ -67,12 +76,6 @@ public class InsertItemForm {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Override
-	public String toString() {
-		return "InsertItemForm [name=" + name + ", price=" + price + ", category=" + category + ", brand=" + brand
-				+ ", conditionId=" + conditionId + ", description=" + description + "]";
 	}
 
 }

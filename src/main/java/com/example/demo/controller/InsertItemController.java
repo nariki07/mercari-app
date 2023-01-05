@@ -6,6 +6,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +42,20 @@ public class InsertItemController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(InsertItemForm insertItemForm,Model model) {
+	public String insert(@Validated InsertItemForm insertItemForm,BindingResult result,Model model) {
+		
+		if(result.hasErrors()) {
+			return toInsert(insertItemForm,model);
+		}
+		
 		Item item = new Item();
 		BeanUtils.copyProperties(insertItemForm, item);
+		item.setConditionId(Integer.parseInt(insertItemForm.getConditionId()));
+		item.setCategory(Integer.parseInt(insertItemForm.getCategory()));
+		item.setPrice(Double.parseDouble(insertItemForm.getPrice()));
 		item.setShipping(0);
 		insertItemService.insertItem(item);
-		return toInsert(insertItemForm,model);
+		return "redirect:/insertItem/";
 	}
 	
 }
