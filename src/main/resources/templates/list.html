@@ -43,7 +43,7 @@
   <div id="main" class="container-fluid">
     <!-- addItem link -->
     <div id="addItemButton">
-      <a class="btn btn-default" href="./add.html"><i class="fa fa-plus-square-o"></i> Add New Item</a>
+      <a class="btn btn-default" th:href="@{/insertItem/}"><i class="fa fa-plus-square-o"></i> Add New Item</a>
     </div>
 
     <!-- 検索フォーム -->
@@ -59,10 +59,8 @@
             <option th:each="largeCategory:${largeCategoryList}" th:value="${largeCategory.id}" id="largeCategory" ><span th:text="${largeCategory.categoryName}"></span></option>
           </select>
           <select class="form-control" id="mediumCategory">
-            <option>- childCategory -</option>
           </select>
           <select class="form-control" id="smallCategory" name="category">
-            <option>- childCategory -</option>
           </select>
         </div>
         <div class="form-group"><i class="fa fa-plus"></i></div>
