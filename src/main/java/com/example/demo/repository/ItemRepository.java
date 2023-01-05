@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.Item;
 
+
 /**
  * itemテーブルを操作するリポジトリ.
  * 
@@ -80,5 +81,18 @@ public class ItemRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
 		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
+	}
+	
+	/**
+	 * 商品情報の更新を行う.
+	 * 
+	 * @param item　商品情報
+	 */
+	public void update(Item item) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+
+		String updateSql = "UPDATE items SET name=:name,condition=:conditionId,category=:category,brand=:brand,price=:price,"
+				+ " shipping=:shipping,description=:description WHERE id=:id";
+		template.update(updateSql, param);
 	}
 }

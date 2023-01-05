@@ -86,8 +86,8 @@
 					<select class="form-control" id="largeCategory">
 						<option>- parentCategory -</option>
 						<option th:each="largeCategory:${largeCategoryList}"
-							th:value="${largeCategory.id}" id="largeCategory"><span
-								th:text="${largeCategory.categoryName}"></span></option>
+							th:value="${largeCategory.id}" id="largeCategory">
+							<span th:text="${largeCategory.categoryName}"></span></option>
 					</select>
 				</div>
 			</div>
@@ -131,8 +131,8 @@
 					</label> <label for="condition2" class="radio-inline"> <input
 						type="radio" name="conditionId" id="condition2" value="2"
 						th:field="*{conditionId}" /> 2
-					</label> <label for="condition3" class="radio-inline"> <input
-						type="radio" name="conditionId" id="condition3" value="3"
+					</label> <label for="condition3" class="radio-inline">
+					 <input type="radio" name="conditionId" id="condition3" value="3"
 						th:field="*{conditionId}" /> 3
 					</label>
 				</div>

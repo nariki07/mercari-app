@@ -78,4 +78,10 @@ public class InsertItemForm {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return "InsertItemForm [name=" + name + ", price=" + price + ", category=" + category + ", brand=" + brand
+				+ ", conditionId=" + conditionId + ", description=" + description + "]";
+	}
+
 }
