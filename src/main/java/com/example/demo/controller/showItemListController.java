@@ -51,7 +51,6 @@ public class ShowItemListController {
 	public Map<String,List<Category>> largeCategory(Integer largeCategoryId){
 		Map<String,List<Category>> map = new HashMap<>();
 		List<Category> mediumCategoryList = showItemListService.showParentIdMediumCategoryList(largeCategoryId);
-		mediumCategoryList.forEach(mediumCategory -> System.out.println(mediumCategory));
 		map.put("mediumCategoryList",mediumCategoryList);
 		return map;
 	}
@@ -61,7 +60,6 @@ public class ShowItemListController {
 	public Map<String,List<Category>> mediumCategory(Integer mediumCategoryId){
 		Map<String,List<Category>> map = new HashMap<>();
 		List<Category> smallCategoryList = showItemListService.showParentIdSmallCategoryList(mediumCategoryId);
-		smallCategoryList.forEach(mediumCategory -> System.out.println(mediumCategory));
 		map.put("smallCategoryList",smallCategoryList);
 		return map;
 	}
