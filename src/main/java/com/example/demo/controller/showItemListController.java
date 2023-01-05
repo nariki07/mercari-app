@@ -27,7 +27,7 @@ import com.example.demo.service.ShowItemListService;
 public class ShowItemListController {
 
 	@Autowired
-	private ShowItemListService showItemListService;
+	private ShowItemListService showItemListService; 
 
 	@GetMapping("/")
 	public String showItem(Model model) {
@@ -41,6 +41,7 @@ public class ShowItemListController {
 		
 		//検索した内容を基にアイテムリストを取得します.
 		List<Item> itemList = showItemListService.showItemList(name, category, brand);
+		itemList.forEach(item -> System.out.println(item));
 		model.addAttribute("itemList",itemList);
 		
 		return showItem(model);
