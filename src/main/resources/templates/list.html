@@ -91,17 +91,17 @@
             <th>price</th>
             <th>category</th>
             <th>brand</th>
-            <th>cond</th>
+            <th>condition</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="item:${itemList}">
-            <td class="item-name"><a href="./detail.html"><span th:text="${item.name}"></span></a></td>
+            <td class="item-name"><a th:href="@{/detail/?itemId=} + ${item.id}"><span th:text="${item.name}"></span></a></td>
             <td class="item-price"><span th:text="${item.price}"></span></td>
             <!-- TODO:後に大カテゴリ、中カテゴリ、小カテゴリの名前を取得して表示. -->
             <td class="item-category"><<a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
             <td class="item-brand"><a href=""><span th:text="${item.brand}"></span>Razer</a></td>
-            <td class="item-condition"><span th:text="item.conditionId"></span>3</td>
+            <td class="item-condition"><span th:text="${item.conditionId}">3</span></td>
           </tr>
           </tbody>
       </table>

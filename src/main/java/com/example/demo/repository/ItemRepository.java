@@ -57,10 +57,28 @@ public class ItemRepository {
 		
 	}
 	
+	/**
+	 * 商品の登録を行います.
+	 * 
+	 * @param item 商品情報
+	 */
 	public void insert(Item item) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
 		String sql = "insert into items(name,condition,category,brand,price,shipping,description)"
 				+ "values(:name,:conditionId,:category,:brand,:price,:shipping,:description);";
 		template.update(sql, param);
+	}
+	
+	/**
+	 * 主キー検索を行います.
+	 * 
+	 * @param itemId 商品ID
+	 * @return 商品情報
+	 */
+	public Item load(Integer itemId) {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items WHERE id =:itemId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
+		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		return item;
 	}
 }
