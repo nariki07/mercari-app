@@ -176,5 +176,12 @@ public class CategoryRepository {
 		return categoryList;
 	}
 	
+	public Category load(Integer id) {
+		String sql = "SELECT id,parent,name,name_all FROM category WHERE id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Category category = template.queryForObject(sql, param, CATEGORY_ROW_MAPPER);
+		return category;
+	}
+	
 
 }

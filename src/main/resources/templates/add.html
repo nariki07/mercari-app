@@ -86,8 +86,8 @@
 					<select class="form-control" id="largeCategory">
 						<option>- parentCategory -</option>
 						<option th:each="largeCategory:${largeCategoryList}"
-							th:value="${largeCategory.id}" id="largeCategory"><span
-								th:text="${largeCategory.categoryName}"></span></option>
+							th:value="${largeCategory.id}" id="largeCategory">
+							<span th:text="${largeCategory.categoryName}"></span></option>
 					</select>
 				</div>
 			</div>
