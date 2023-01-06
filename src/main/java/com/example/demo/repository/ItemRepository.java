@@ -39,6 +39,21 @@ public class ItemRepository {
 	};
 	
 	/**
+	 * 全件検索を行います.
+	 * 
+	 * @return　商品情報一覧
+	 */
+	public List<Item> findAll(){
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items " 
+				+ "ORDER BY id ASC;";
+
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
+
+		return itemList;
+		
+	}
+	
+	/**
 	 * 商品名とカテゴリIDとブランド名で検索を行う.
 	 * 
 	 * @param name 商品名

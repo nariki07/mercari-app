@@ -86,7 +86,7 @@
         <div class="form-group">
           <label for="category" class="col-sm-2 control-label"></label>
           <div class="col-sm-8">
-            <select class="form-control" id="smallCategory" name="category">
+            <select class="form-control" id="smallCategory" name="category"  th:field="*{category}">
 					</select>
 			<div th:errors="*{category}" style="color: red"
 						class="error-messages"></div>
@@ -106,10 +106,10 @@
           <label for="condition" class="col-sm-2 control-label">condition</label>
           <div class="col-sm-8">
             <label for="condition1" class="radio-inline">
-              <input type="radio" name="conditionId" id="condition1" value="1" checked/> 1
+              <input type="radio" name="conditionId" id="condition1" value="1"  th:field="*{conditionId}"/> 1
             </label>
             <label for="condition2" class="radio-inline">
-              <input type="radio" name="conditionId" id="condition2" value="2"/> 2
+              <input type="radio" name="conditionId" id="condition2" value="2"  th:field="*{conditionId}"/> 2
             </label>
             <label for="condition3" class="radio-inline">
               <input type="radio" name="conditionId" id="condition3" value="3" th:field="*{conditionId}"/> 3
