@@ -48,7 +48,7 @@
 
     <!-- 検索フォーム -->
     <div id="forms">
-      <form th:action="@{/serch}" class="form-inline" role="form" method="post">
+      <form th:action="@{/}" class="form-inline" role="form" method="post">
         <div class="form-group">
           <input type="text" name="name" class="form-control" id="name" placeholder="item name"/>
         </div>
@@ -73,15 +73,14 @@
     </div>
 
     <!-- pagination -->
-    <div class="pages">
+  <div class="pages" >
       <nav class="page-nav">
-        <ul class="pager">
-          <li class="previous"><a href="#">&larr; prev</a></li>
-          <li class="next"><a href="#">next &rarr;</a></li>
+        <ul class="pager" th:if="${itemPage.totalPages > 0}" >
+          <li class="previous"><a th:href="@{/(name=${name},category=${category},brand=${brand},page=${(itemPage.number + 1) - 1})}" >&larr; prev</a></li>
+          <li class="next"><a th:href="@{/(name=${name},category=${category},brand=${brand},page=${(itemPage.number + 1) + 1 })}" >next &rarr;</a></li>
         </ul>
       </nav>
     </div>
-
     <!-- table -->
     <div class="table-responsive">
       <table id="item-table" class="table table-hover table-condensed">
@@ -94,8 +93,8 @@
             <th>condition</th>
           </tr>
         </thead>
-        <tbody>
-          <tr th:each="item:${itemList}">
+        <tbody id="items">
+          <tr th:each="item:${itemPage.content}">
             <td class="item-name"><a th:href="@{/detail/?itemId=} + ${item.id}"><span th:text="${item.name}"></span></a></td>
             <td class="item-price"><span th:text="${item.price}"></span></td>
             <!-- TODO:後に大カテゴリ、中カテゴリ、小カテゴリの名前を取得して表示. -->
@@ -108,24 +107,29 @@
     </div>
 
     <!-- pagination -->
-    <div class="pages">
+     <div class="pages" >
       <nav class="page-nav">
-        <ul class="pager">
-          <li class="previous"><a href="#">&larr; prev</a></li>
-          <li class="next"><a href="#">next &rarr;</a></li>
+        <ul class="pager" th:if="${itemPage.totalPages > 0}" >
+          <li class="previous"><a th:href="@{/(name=${name},category=${category},brand=${brand},page=${(itemPage.number + 1) - 1})}">&larr; prev</a></li>
+          <li class="next"><a th:href="@{/(name=${name},category=${category},brand=${brand},page=${(itemPage.number + 1) + 1 })}" >next &rarr;</a></li>
         </ul>
       </nav>
+      </div>
       <!-- ページ番号を指定して表示するフォーム -->
-      <div id="select-page">
-        <form class="form-inline">
+      <div id="select-page" th:if="${itemPage.totalPages > 0}">
+        <form class="form-inline" th:action="@{/}" method="post">
           <div class="form-group">
             <div class="input-group col-xs-6">
               <label></label>
-              <input type="text" class="form-control"/>
+              <input type="text" class="form-control" name="page"/>
+              <input type="hidden" name="name" th:value="${name}">
+              <input type="hidden" name="category" th:value="${category}">
+              <input type="hidden" name="brand" th:value="${brand}">
               <!-- 総ページ数 -->
-              <div class="input-group-addon">/ 20</div>
+              <div class="input-group-addon" >/<span th:text="${itemPage.totalPages}"></div>
             </div>
             <div class="input-group col-xs-1">
+             
               <button type="submit" class="btn btn-default">Go</button>
             </div>
           </div>
@@ -135,6 +139,5 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script th:src="@{/js/mercari.js}"></script>
-  
 </body>
 </html>
