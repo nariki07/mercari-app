@@ -28,14 +28,17 @@
     <div class="panel panel-default">
       <div class="panel-heading">Register Account</div>
       <div class="panel-body">
-        <form action="#" method="POST">
+        <form th:action="@{/insert}" th:object="${insertUserForm}" method="POST">
           <div class="form-group">
-            <label for="mail">mail address</label>
-            <input type="email" class="form-control" id="mail">
+          	          <div th:errors="*{name}" style="color:red" class="error-messages">名前を入力して下さい</div>
+          	
+            <label for="username">username</label>
+            <input type="text" class="form-control" name="name" id="mail" th:field="*{name}">
           </div>
           <div class="form-group">
+                    <div th:errors="*{password}" style="color:red" class="error-messages">名前を入力して下さい</div>
             <label for="password">password</label>
-            <input type="text" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>

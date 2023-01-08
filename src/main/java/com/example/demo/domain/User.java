@@ -14,7 +14,7 @@ public class User {
 	/* パスワード */
 	private String password;
 	/* 権限 */
-	private String authority;
+	private Integer authority;
 
 	@Override
 	public String toString() {
@@ -45,11 +45,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getAuthority() {
+	public Integer getAuthority() {
 		return authority;
 	}
 
-	public void setAuthority(String authority) {
+	public void setAuthority(Integer authority) {
 		this.authority = authority;
 	}
 
