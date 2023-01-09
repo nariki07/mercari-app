@@ -28,8 +28,13 @@
     <div class="panel panel-default">
       <div class="panel-heading">Login</div>
       <div class="panel-body">
+        
+        <form th:action="@{/loginUser}" method="POST">
+        <div th:if="${param.error}">
+    <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">
         <p class="text-danger">error:failed to login</p>
-        <form th:action="@{/login/loginUser}" method="POST">
+    </div>
+</div>
           <div class="form-group">
             <label for="name">userName</label>
             <input type="text" class="form-control" id="name" name="name">
@@ -43,7 +48,7 @@
       </div>
     </div>
     <div>
-      <a type="button" class="btn btn-default" href="./register.html"><i class="fa fa-user-plus"></i>&nbsp;Register Account</a>
+      <a type="button" class="btn btn-default" th:href="@{/toInsert}"><i class="fa fa-user-plus"></i>&nbsp;Register Account</a>
     </div>
   </div>
 </body>
