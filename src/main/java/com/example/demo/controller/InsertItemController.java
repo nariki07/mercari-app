@@ -18,6 +18,8 @@ import com.example.demo.form.InsertItemForm;
 import com.example.demo.service.InsertItemService;
 import com.example.demo.service.ShowItemListService;
 
+import jakarta.servlet.http.HttpSession;
+
 /**
  * 商品登録を行うコントローラー.
  * 
@@ -34,6 +36,7 @@ public class InsertItemController {
 	@Autowired
 	private InsertItemService insertItemService; 
 	
+	
 	@GetMapping("/")
 	public String toInsert(InsertItemForm insertItemForm,Model model) {
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
@@ -42,19 +45,35 @@ public class InsertItemController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@Validated InsertItemForm insertItemForm,BindingResult result,Model model) {
+	public String insert(@Validated InsertItemForm insertItemForm,BindingResult result,Model model,String conditionId2) {
+		
 		
 		if(result.hasErrors()) {
 			return toInsert(insertItemForm,model);
 		}
+
+		//,区切りでパラメーターが送られてくるためsplit()で配列に格納.
+		String[] name = insertItemForm.getName().split(",",0);
+		String[] price = insertItemForm.getPrice().split(",",0);
+		String[] category = insertItemForm.getCategory().split(",",0);
+		String[] brand = insertItemForm.getBrand().split(",",0);
+		String[] conditionId = new String[5];  
+		conditionId[0] = insertItemForm.getConditionId();
+		conditionId[1] = conditionId2;
+		String[] description = insertItemForm.getDescription().split(",",0);
+		//要素の数だけinsert処理を行う。
+		for(int i=0; i < name.length; i++) {
+			Item item = new Item();
+			item.setName(name[i]);
+			item.setPrice(Double.parseDouble(price[i]));
+			item.setCategory(Integer.parseInt(category[i]));
+			item.setBrand(brand[i]);
+			item.setConditionId(Integer.parseInt(conditionId[i]));
+			item.setDescription(description[i]);
+			item.setShipping(0);
+			insertItemService.insertItem(item);
+		}
 		
-		Item item = new Item();
-		BeanUtils.copyProperties(insertItemForm, item);
-		item.setConditionId(Integer.parseInt(insertItemForm.getConditionId()));
-		item.setCategory(Integer.parseInt(insertItemForm.getCategory()));
-		item.setPrice(Double.parseDouble(insertItemForm.getPrice()));
-		item.setShipping(0);
-		insertItemService.insertItem(item);
 		return "redirect:/insertItem/";
 	}
 	
