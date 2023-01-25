@@ -39,16 +39,30 @@ public class ShowItemListController {
 
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-
+		
+		//pageがnullもしくは0の場合は1をいれる.
 		if (page == null || page == 0) {
 			page = 1;
 		}
-
-		// 検索した内容を基にアイテムリストを取得します.
-		List<Item> itemList = showItemListService.showItemList(name, category, brand);
-		model.addAttribute("name", name);
-		model.addAttribute("category", category);
-		model.addAttribute("brand", brand);
+		
+		List<Item> itemList = new ArrayList<>();
+		
+		if(name != "" && category == null && brand == "" || brand == null) {
+			//商品名のみで検索を行なった場合の処理.
+			itemList = showItemListService.showItemList2(name);
+		}else if(name == "" || name == null  && category == null && brand != "") {
+			//ブランド名のみで検索を行なった場合の処理.
+			itemList = showItemListService.showItemList3(brand);
+		}else if(name != "" && category == null && brand != "") {
+			//商品名とブランド名で検索を行なった場合の処理.
+			itemList = showItemListService.showItemList4(name, brand);
+		}else {
+			itemList = showItemListService.showItemList(name, category, brand);
+		}
+		
+		model.addAttribute("name", name); //検索にかけた名前が入る.
+		model.addAttribute("category", category); //小カテゴリのIDが入る.
+		model.addAttribute("brand", brand); //検索にかけたブランド名が入る.
 
 		// ページング機能追加のためコメントアウト.
 		/* model.addAttribute("itemList",itemList); */

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.Item;
 
-
 /**
  * itemテーブルを操作するリポジトリ.
  * 
@@ -21,10 +20,10 @@ import com.example.demo.domain.Item;
  */
 @Repository
 public class ItemRepository {
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	private static final RowMapper<Item> ITEM_ROW_MAPPER = (rs, i) -> {
 		Item item = new Item();
 		item.setId(rs.getInt("id"));
@@ -37,42 +36,99 @@ public class ItemRepository {
 		item.setDescription(rs.getString("description"));
 		return item;
 	};
-	
+
 	/**
 	 * 全件検索を行います.
 	 * 
-	 * @return　商品情報一覧
+	 * @return 商品情報一覧
 	 */
-	public List<Item> findAll(){
-		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items " 
+	public List<Item> findAll() {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
 				+ "ORDER BY id ASC;";
 
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 
 		return itemList;
-		
+
 	}
-	
+
 	/**
 	 * 商品名とカテゴリIDとブランド名で検索を行う.
 	 * 
-	 * @param name 商品名
+	 * @param name     商品名
 	 * @param category カテゴリ
-	 * @param brand ブランド名
-	 * @return　商品情報一覧
+	 * @param brand    ブランド名
+	 * @return 商品情報一覧
 	 */
-	public List<Item> findByNameAndCategoryAndBrand(String name,Integer category,String brand){
-		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items " 
+	public List<Item> findByNameAndCategoryAndBrand(String name, Integer category, String brand) {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
 				+ "WHERE name LIKE :itemSerch AND category = :category AND brand LIKE :brandSerch;";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", "%" + name + "%").addValue("category", category).addValue("brandSerch", "%" + brand + "%");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", "%" + name + "%")
+				.addValue("category", category).addValue("brandSerch", "%" + brand + "%");
 
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 
 		return itemList;
-		
+
 	}
-	
+
+	/**
+	 * 商品名で検索を行います.
+	 * 
+	 * @param name 商品名
+	 * @return 商品情報一覧
+	 */
+	public List<Item> findByName(String name) {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
+				+ "WHERE name LIKE :itemSerch;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", "%" + name + "%");
+
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+
+		return itemList;
+
+	}
+
+	/**
+	 * ブランド名で検索を行います.
+	 * 
+	 * @param brand ブランド名
+	 * @return 商品情報一覧
+	 */
+	public List<Item> findByBrand(String brand) {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
+				+ "WHERE brand LIKE :brandSerch;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("brandSerch", "%" + brand + "%");
+
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+
+		return itemList;
+
+	}
+
+	/**
+	 * 商品名とブランド名で検索を行います.
+	 * 
+	 * @param name 商品名
+	 * @param brand　ブランド名
+	 * @return　商品情報一覧
+	 */
+	public List<Item> findByNameAndBrand(String name, String brand) {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
+				+ "WHERE name LIKE :itemSerch AND brand LIKE :brandSerch;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", "%" + name + "%")
+				.addValue("brandSerch", "%" + brand + "%");
+
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+
+		return itemList;
+
+	}
+
 	/**
 	 * 商品の登録を行います.
 	 * 
@@ -84,7 +140,7 @@ public class ItemRepository {
 				+ "values(:name,:conditionId,:category,:brand,:price,:shipping,:description);";
 		template.update(sql, param);
 	}
-	
+
 	/**
 	 * 主キー検索を行います.
 	 * 
@@ -97,11 +153,11 @@ public class ItemRepository {
 		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
 	}
-	
+
 	/**
 	 * 商品情報の更新を行う.
 	 * 
-	 * @param item　商品情報
+	 * @param item 商品情報
 	 */
 	public void update(Item item) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);

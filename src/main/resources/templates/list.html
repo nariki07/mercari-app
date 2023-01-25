@@ -101,7 +101,7 @@
             <td class="item-price"><span th:text="${item.price}"></span></td>
             <!-- TODO:後に大カテゴリ、中カテゴリ、小カテゴリの名前を取得して表示. -->
             <td class="item-category"><<a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
-            <td class="item-brand"><a href=""><span th:text="${item.brand}"></span>Razer</a></td>
+            <td class="item-brand"><a th:href="@{/?brand=} + ${item.brand}"><span th:text="${item.brand}"></span></a></td>
             <td class="item-condition"><span th:text="${item.conditionId}">3</span></td>
           </tr>
           </tbody>
