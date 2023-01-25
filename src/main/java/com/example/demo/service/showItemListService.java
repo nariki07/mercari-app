@@ -46,6 +46,40 @@ public class ShowItemListService {
 	}
 	
 	/**
+	 * 商品名で商品情報を取得します.
+	 * 
+	 * @param name　商品名
+	 * @return 商品情報一覧
+	 */
+	public List<Item> showItemList2(String name){
+		List<Item> itemList = itemRepository.findByName(name);
+		return itemList;
+	}
+	
+	/**
+	 * ブランド名で商品情報を取得します.
+	 * 
+	 * @param brand
+	 * @return
+	 */
+	public List<Item> showItemList3(String brand){
+		List<Item> itemList = itemRepository.findByBrand(brand);
+		return itemList;
+	}
+	
+	/**
+	 * 商品名とブランド名で商品情報を取得します.
+	 * 
+	 * @param name 商品名
+	 * @param brand　ブランド名
+	 * @return　商品情報一覧
+	 */
+	public List<Item> showItemList4(String name ,String brand){
+		List<Item> itemList = itemRepository.findByNameAndBrand(name, brand);
+		return itemList;
+	}
+	
+	/**
 	 *全件検索を行うメソッド. 
 	 * 
 	 * @return 商品一覧
