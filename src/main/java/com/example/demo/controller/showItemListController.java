@@ -18,7 +18,6 @@ import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
 import com.example.demo.service.ShowItemListService;
 
-
 /**
  * 商品情報を操作するコントローラー.
  * 
@@ -30,41 +29,40 @@ import com.example.demo.service.ShowItemListService;
 public class ShowItemListController {
 
 	@Autowired
-	private ShowItemListService showItemListService; 
-	
+	private ShowItemListService showItemListService;
+
 	// 1ページに表示するアイテム数は20個
-	private static final int VIEW_SIZE = 20; 
-	
+	private static final int VIEW_SIZE = 20;
+
 	@RequestMapping("/")
-	public String showItemList(String name, String brand, Integer category,Model model,Integer page) {
-		
+	public String showItemList(String name, String brand, Integer category, Model model, Integer page) {
+
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-		
-		if(page == null || page == 0 ) {
+
+		if (page == null || page == 0) {
 			page = 1;
 		}
-		
-			//検索した内容を基にアイテムリストを取得します.
-			List<Item> itemList = showItemListService.showItemList(name, category, brand);
-			model.addAttribute("name",name);
-			model.addAttribute("category",category);
-			model.addAttribute("brand",brand);
-		
+
+		// 検索した内容を基にアイテムリストを取得します.
+		List<Item> itemList = showItemListService.showItemList(name, category, brand);
+		model.addAttribute("name", name);
+		model.addAttribute("category", category);
+		model.addAttribute("brand", brand);
+
 		// ページング機能追加のためコメントアウト.
 		/* model.addAttribute("itemList",itemList); */
 		
-		//表示させたいページ数、ページサイズ、商品リストを渡し１ページに表示させる商品リストを絞り込み.
-		Page<Item> itemPage = null; 
-		itemPage = showItemListService.showItemListPaging(page,VIEW_SIZE,itemList);
+		// 表示させたいページ数、ページサイズ、商品リストを渡し１ページに表示させる商品リストを絞り込み.
+		Page<Item> itemPage = null;
+		itemPage = showItemListService.showItemListPaging(page, VIEW_SIZE, itemList);
 		model.addAttribute("itemPage", itemPage);
 
-		if(itemPage.isEmpty() && page != 1) {
-			page --;
-			Page<Item> itemPage2 = showItemListService.showItemListPaging(page,VIEW_SIZE,itemList);
+		if (itemPage.isEmpty() && page != 1) {
+			page--;
+			Page<Item> itemPage2 = showItemListService.showItemListPaging(page, VIEW_SIZE, itemList);
 			model.addAttribute("itemPage", itemPage2);
 		}
-		
 
 		// ページングのリンクに使うページ数をスコープに格納 (例)28件あり1ページにつき10件表示させる場合→1,2,3がpageNumbersに入る
 		List<Integer> pageNumbers = calcPageNumbers(model, itemPage);
@@ -72,7 +70,7 @@ public class ShowItemListController {
 
 		return "list";
 	}
-	
+
 	/**
 	 * ページングのリンクに使うページ数をスコープに格納 (例)28件あり1ページにつき10件表示させる場合→1,2,3がpageNumbersに入る
 	 * 
@@ -90,22 +88,22 @@ public class ShowItemListController {
 		}
 		return pageNumbers;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/largeCategory")
-	public Map<String,List<Category>> largeCategory(Integer largeCategoryId){
-		Map<String,List<Category>> map = new HashMap<>();
+	public Map<String, List<Category>> largeCategory(Integer largeCategoryId) {
+		Map<String, List<Category>> map = new HashMap<>();
 		List<Category> mediumCategoryList = showItemListService.showParentIdMediumCategoryList(largeCategoryId);
-		map.put("mediumCategoryList",mediumCategoryList);
+		map.put("mediumCategoryList", mediumCategoryList);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/mediumCategory")
-	public Map<String,List<Category>> mediumCategory(Integer mediumCategoryId){
-		Map<String,List<Category>> map = new HashMap<>();
+	public Map<String, List<Category>> mediumCategory(Integer mediumCategoryId) {
+		Map<String, List<Category>> map = new HashMap<>();
 		List<Category> smallCategoryList = showItemListService.showParentIdSmallCategoryList(mediumCategoryId);
-		map.put("smallCategoryList",smallCategoryList);
+		map.put("smallCategoryList", smallCategoryList);
 		return map;
 	}
 }
