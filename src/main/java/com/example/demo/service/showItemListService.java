@@ -141,6 +141,16 @@ public class ShowItemListService {
 	}
 	
 	/**
+	 * 小カテゴリの情報をID検索を行います.
+	 * 
+	 * @return
+	 */
+	public Category showIdSmallCategoryList(Integer id){
+		Category category = categoryRepository.findIdSmallCategory(id);
+		return category;
+	}
+	
+	/**
 	 * ページング用メソッド.
 	 * @param page 表示させたいページ数
 	 * @param size １ページに表示させる従業員数.

@@ -176,6 +176,19 @@ public class CategoryRepository {
 		return categoryList;
 	}
 	
+	/**
+	 * idで小カテゴリの主キー検索を行います.
+	 * 
+	 * @param id ID
+	 * @return カテゴリ情報
+	 * 	 */
+	public Category findIdSmallCategory(Integer id){
+		String sql = "SELECT id,parent,name,name_all FROM category WHERE id = :id AND name_all IS NOT NULL";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Category category = template.queryForObject(sql,param,CATEGORY_ROW_MAPPER);
+		return category;
+	}
+	
 	public Category load(Integer id) {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
