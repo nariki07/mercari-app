@@ -42,6 +42,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // ユーザー権限付与
 			System.out.println("ROLE_USERの権限が付与されました。");
 		}else {
+			System.out.println("権限がない場合は認証エラー");
 			throw new BadCredentialsException("Authentication Error");
 		}
 		return new LoginUser(user,authorityList);

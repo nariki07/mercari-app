@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.ShowItemListService;
 
 /**
@@ -31,42 +31,59 @@ public class ShowItemListController {
 	@Autowired
 	private ShowItemListService showItemListService;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
 	// 1ページに表示するアイテム数は20個
 	private static final int VIEW_SIZE = 20;
 
 	@RequestMapping("/")
 	public String showItemList(String name, String brand, Integer category, Model model, Integer page) {
 
+		if (category != null) {
+			Category smallCategory = showItemListService.showIdSmallCategoryList(category);
+			// nameallをcategoryに分ける。
+			String[] categorys = smallCategory.getNameAll().split("/", 0);
+			model.addAttribute("largeCategory", categorys[0]);
+			model.addAttribute("mediumCategory", categorys[1]);
+			model.addAttribute("smallCategory", categorys[2]);
+		}
+
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-		
-		//pageがnullもしくは0の場合は1をいれる.
+
+		// pageがnullもしくは0の場合は1をいれる.
 		if (page == null || page == 0) {
 			page = 1;
 		}
-		
+
 		List<Item> itemList = new ArrayList<>();
-		
-		if(name != "" && category == null && brand == "" || brand == null) {
-			//商品名のみで検索を行なった場合の処理.
+
+		if (name == "" && category == null && brand != "") {
+			// 商品名のみで検索を行なった場合の処理.
 			itemList = showItemListService.showItemList2(name);
-		}else if(name == "" || name == null  && category == null && brand != "") {
-			//ブランド名のみで検索を行なった場合の処理.
+		} else if (name == null && category == null && brand != "") {
+			// リンクのブランド名から検索をかける.リンクからのパラメーターは""ではなくnullが入るため.
 			itemList = showItemListService.showItemList3(brand);
-		}else if(name != "" && category == null && brand != "") {
-			//商品名とブランド名で検索を行なった場合の処理.
+		} else if (name != "" && category == null && brand == "") {
+			// ブランド名のみで検索を行なった場合の処理.
+			itemList = showItemListService.showItemList3(brand);
+		} else if (name != "" && category == null && brand != "") {
+			// 商品名とブランド名で検索を行なった場合の処理.
+			// 何も検索欄に入力していないと、ここの処理が行われるが動作は変わらないためこのままにしておく.
 			itemList = showItemListService.showItemList4(name, brand);
-		}else {
+		} else {
 			itemList = showItemListService.showItemList(name, category, brand);
 		}
-		
-		model.addAttribute("name", name); //検索にかけた名前が入る.
-		model.addAttribute("category", category); //小カテゴリのIDが入る.
-		model.addAttribute("brand", brand); //検索にかけたブランド名が入る.
+
+		List<Category> categoryList = new ArrayList<>();
+
+		model.addAttribute("name", name); // 検索にかけた名前が入る.
+		model.addAttribute("category", category); // 小カテゴリのIDが入る.
+		model.addAttribute("brand", brand); // 検索にかけたブランド名が入る.
 
 		// ページング機能追加のためコメントアウト.
 		/* model.addAttribute("itemList",itemList); */
-		
+
 		// 表示させたいページ数、ページサイズ、商品リストを渡し１ページに表示させる商品リストを絞り込み.
 		Page<Item> itemPage = null;
 		itemPage = showItemListService.showItemListPaging(page, VIEW_SIZE, itemList);
