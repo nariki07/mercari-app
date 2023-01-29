@@ -62,7 +62,7 @@
 		<input type='button' id='btnAdd' class="btn btn-default"/>
         <input type='button' id='btnDel' class="btn btn-default"/>
 		
-		<form th:action="@{/insertItem/insert}" th:object="${insertItemForm}"
+		<form th:action="@{/insertItem/insertTest}" th:object="${insertItemFormList}"
 			method="POST" class="form-horizontal">
 			<div class="form-block" id="form-block">
 				<!-- name -->
@@ -70,8 +70,8 @@
 					<label for="inputName" class="col-sm-2 control-label">name</label>
 					<div class="col-sm-8">
 						<input type="text" class="form-control" id="inputName" name="name"
-							th:field="*{name}" />
-						<div th:errors="*{name}" style="color: red" class="error-messages"></div>
+							th:field="*{insertItemFormList[0].name}" />
+						<div th:errors="*{insertItemFormList[0].name}" style="color: red" class="error-messages"></div>
 					</div>
 				</div>
 				<!-- price -->
@@ -79,8 +79,8 @@
 					<label for="price" class="col-sm-2 control-label">price</label>
 					<div class="col-sm-8">
 						<input type="text" class="form-control" id="price" name="price"
-							th:field="*{price}" />
-						<div th:errors="*{price}" style="color: red"
+							th:field="*{insertItemFormList[0].price}" />
+						<div th:errors="*{insertItemFormList[0].price}" style="color: red"
 							class="error-messages"></div>
 					</div>
 				</div>
@@ -106,14 +106,14 @@
 				<div class="form-group">
 					<label for="category" class="col-sm-2 control-label"></label>
 					<div class="col-sm-8">
-						<select class="form-control" id="smallCategory" name="category">
+						<select class="form-control" id="smallCategory" name="category" th:field="*{insertItemFormList[0].category}">
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="category" class="col-sm-2 control-label"></label>
 					<div class="col-sm-8">
-						<div th:errors="*{category}" style="color: red"
+						<div th:errors="*{insertItemFormList[0].category}" style="color: red"
 							class="error-messages"></div>
 					</div>
 				</div>
@@ -122,8 +122,8 @@
 					<label for="brand" class="col-sm-2 control-label">brand</label>
 					<div class="col-sm-8">
 						<input type="text" id="brand" class="form-control" name="brand"
-							th:field="*{brand}" />
-						<div th:errors="*{brand}" style="color: red"
+							th:field="*{insertItemFormList[0].brand}" />
+						<div th:errors="*{insertItemFormList[0].brand}" style="color: red"
 							class="error-messages"></div>
 					</div>
 				</div>
@@ -133,20 +133,20 @@
 					<div class="col-sm-8">
 						<label for="condition1" class="radio-inline"> <input
 							type="radio" name="conditionId" id="condition1" value="1"
-							th:field="*{conditionId}" checked/> 1
+							th:field="*{insertItemFormList[0].conditionId}" checked/> 1
 						</label> <label for="condition2" class="radio-inline"> <input
 							type="radio" name="conditionId" id="condition2" value="2"
-							th:field="*{conditionId}" /> 2
+							th:field="*{insertItemFormList[0].conditionId}" /> 2
 						</label> <label for="condition3" class="radio-inline"> <input
 							type="radio" name="conditionId" id="condition3" value="3"
-							th:field="*{conditionId}" /> 3
+							th:field="*{insertItemFormList[0].conditionId}" /> 3
 						</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="category" class="col-sm-2 control-label"></label>
 					<div class="col-sm-8">
-						<div th:errors="*{conditionId}" style="color: red"
+						<div th:errors="*{insertItemFormList[0].conditionId}" style="color: red"
 							class="error-messages"></div>
 					</div>
 				</div>
@@ -155,13 +155,12 @@
 					<label for="description" class="col-sm-2 control-label">description</label>
 					<div class="col-sm-8">
 						<textarea name="description" id="description" class="form-control"
-							rows="5" th:field="*{description}"></textarea>
-						<div th:errors="*{description}" style="color: red"
+							rows="5" th:field="*{insertItemFormList[0].description}"></textarea>
+						<div th:errors="*{insertItemFormList[0].description}" style="color: red"
 							class="error-messages"></div>
 					</div>
 				</div>
-				</div>
-				
+				</div>				
 				</div>
 				<!-- submit button -->
 				<div class="form-group">

@@ -3,14 +3,7 @@ package com.example.demo.form;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
-/**
- * 商品情報を受け取るフォームクラス.
- * 
- * @author moriharanariki
- *
- */
 public class InsertItemForm {
-
 	/* 商品名 */
 	@NotBlank(message = "error:may not be empty")
 	private String name;
@@ -77,11 +70,4 @@ public class InsertItemForm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	@Override
-	public String toString() {
-		return "InsertItemForm [name=" + name + ", price=" + price + ", category=" + category + ", brand=" + brand
-				+ ", conditionId=" + conditionId + ", description=" + description + "]";
-	}
-
 }

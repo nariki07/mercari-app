@@ -47,7 +47,7 @@ public class ShowItemListController {
 			model.addAttribute("mediumCategory", categorys[1]);
 			model.addAttribute("smallCategory", categorys[2]);
 		}
-
+		
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
 
