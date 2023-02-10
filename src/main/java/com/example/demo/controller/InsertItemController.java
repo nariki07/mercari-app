@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
@@ -45,9 +49,8 @@ public class InsertItemController {
 	}
 
 	@PostMapping("/insert")
-	public String insert(@Validated InsertItemFormList insertItemFormList, BindingResult result, Model model,
-			String conditionId2) {
-			
+	public String insert(@Validated InsertItemFormList insertItemFormList, BindingResult result, Model model) {
+
 		if (result.hasErrors()) {
 			return toInsert(insertItemFormList, model);
 		}
@@ -66,6 +69,7 @@ public class InsertItemController {
 		}
 
 		return "redirect:/insertItem/";
+		
 	}
 
 }

@@ -16,6 +16,10 @@ public class Category {
 	private String categoryName;
 	/* 全カテゴリー名 */
 	private String nameAll;
+	
+	public Category() {
+		
+	}
 
 	public Integer getId() {
 		return id;

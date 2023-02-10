@@ -35,7 +35,7 @@ $(function() {
 		}
 
 		//form_blockの下にコードを追加している.
-				form_block.insertAdjacentHTML('afterend', block);
+		form_block.insertAdjacentHTML('afterend', block);
 		form_block.insertAdjacentHTML('afterend', input_description);
 		form_block.insertAdjacentHTML('afterend', input_condition);
 		form_block.insertAdjacentHTML('afterend', input_brand);
@@ -69,5 +69,34 @@ $(function() {
 		if (!(n === 0)) {
 			n--
 		}
+	});
+});
+
+$(function() {
+	$(document).on("click", "#submit", function() {
+		console.log("送信ボタンが押されました");
+		let hostUrl = "http://localhost:8080/mercari-202210/insertItem/insertTest";
+		let form = $("form").serializeArray()
+		console.log(JSON.stringify(form))
+		$.ajax({
+			url: hostUrl, //リクエスト先のURL
+			type: "POST",
+			data: {
+				insertItemFormList: JSON.stringify(form),
+			}, //リクエストパラメーター
+			datatype: "json", //レスポンスデータの種類
+			async: "true", //trueは非同期処理
+		}).done(function(data) {
+			//成功した時の処理.
+			console.log(data)
+		})
+			.fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log("XMLHttpRequest:" + XMLHttpRequest.status);
+				console.log("textStatus:" + textStatus);
+				console.log("errorThrown:" + errorThrown.message);
+			})
+			.always(function(data) {
+				//通信成功・失敗問わず行う処理を記載(dataにはレスポンス情報が含まれる。)
+			});
 	});
 });
