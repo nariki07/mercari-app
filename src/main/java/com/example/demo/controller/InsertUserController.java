@@ -52,7 +52,8 @@ public class InsertUserController {
 		BeanUtils.copyProperties(insertUserForm, user);
 		user.setAuthority(null); //とりあえずnullにしておく.
 		insertUserService.insertUser(user);
-		
 		return "redirect:/login";
 	}
+	
+	
 }

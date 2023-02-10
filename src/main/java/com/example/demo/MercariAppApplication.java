@@ -8,6 +8,7 @@ public class MercariAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MercariAppApplication.class, args);
+	
 	}
 
 }
