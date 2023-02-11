@@ -15,19 +15,19 @@ import jakarta.validation.Valid;
 public class InsertItemFormList implements Serializable  {
 	
 	@Valid
-	private List<ItemData> insertItemFormList;
+	private List<ItemData> itemFormList;
 
-	public List<ItemData> getInsertItemFormList() {
-		return insertItemFormList;
+	public List<ItemData> getItemFormList() {
+		return itemFormList;
 	}
 
-	public void setInsertItemFormList(List<ItemData> insertItemFormList) {
-		this.insertItemFormList = insertItemFormList;
+	public void setItemFormList(List<ItemData> insertItemFormList) {
+		this.itemFormList = insertItemFormList;
 	}
 
 	@Override
 	public String toString() {
-		return "InsertItemForm [insertItemFormList=" + insertItemFormList + "]";
+		return "InsertItemForm [insertItemFormList=" + itemFormList + "]";
 	}
 
 }

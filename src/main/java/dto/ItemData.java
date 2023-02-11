@@ -72,4 +72,10 @@ public class ItemData implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemData [name=" + name + ", price=" + price + ", category=" + category + ", brand=" + brand
+				+ ", conditionId=" + conditionId + ", description=" + description + "]";
+	}
 }
