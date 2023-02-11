@@ -1,21 +1,16 @@
 package com.example.demo.controller;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
@@ -45,18 +40,30 @@ public class InsertItemController {
 	public String toInsert(InsertItemFormList insertItemFormList, Model model) {
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-		return "add";
+
+		// ここからフォームを表示させるための処理.
+		// itemFormListがnullの場合のみ処理を行う.
+		if (insertItemFormList.getItemFormList() == null) {
+			insertItemFormList = new InsertItemFormList();
+			List<ItemData> insertItemFormList2 = new ArrayList<>();
+			insertItemFormList.setItemFormList(insertItemFormList2);
+			ItemData itemData = new ItemData();
+			insertItemFormList.getItemFormList().add(itemData);
+			model.addAttribute("insertItemFormList", insertItemFormList);
+		}
+		return "add_test";
 	}
 
 	@PostMapping("/insert")
 	public String insert(@Validated InsertItemFormList insertItemFormList, BindingResult result, Model model) {
+		System.out.println(insertItemFormList);
 
 		if (result.hasErrors()) {
 			return toInsert(insertItemFormList, model);
 		}
 
 		// 要素の数だけinsert処理を行う。
-		for (ItemData itemData : insertItemFormList.getInsertItemFormList()) {
+		for (ItemData itemData : insertItemFormList.getItemFormList()) {
 			Item item = new Item();
 			item.setName(itemData.getName());
 			item.setPrice(Double.parseDouble(itemData.getPrice()));
@@ -69,7 +76,7 @@ public class InsertItemController {
 		}
 
 		return "redirect:/insertItem/";
-		
+
 	}
 
 }
