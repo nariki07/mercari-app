@@ -2,27 +2,21 @@ package dto;
 
 import java.io.Serializable;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import com.example.demo.validation.ValidateItemType;
 
+@ValidateItemType(fields = { "name", "price", "category", "brand", "conditionId", "description" })
 public class ItemData implements Serializable {
 	/* 商品名 */
-	@NotBlank(message = "error:may not be empty")
 	private String name;
 	/* 価格 */
-	@NotBlank(message = "error:may not be empty")
 	private String price;
 	/* カテゴリ */
-	@NotBlank(message = "error:may not be empty")
 	private String category;
 	/* ブランド名 */
-	@NotBlank(message = "error:may not be empty")
 	private String brand;
 	/* 状態 */
-	@NotEmpty(message = "error:may not be empty")
 	private String conditionId;
 	/* 説明 */
-	@NotBlank(message = "error:may not be empty")
 	private String description;
 
 	public String getName() {

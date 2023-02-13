@@ -1,7 +1,5 @@
 package com.example.demo.form;
 
-import com.example.demo.controller.InsertItemController;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 

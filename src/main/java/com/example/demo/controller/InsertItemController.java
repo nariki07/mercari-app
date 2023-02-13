@@ -57,7 +57,7 @@ public class InsertItemController {
 	@PostMapping("/insert")
 	public String insert(@Validated InsertItemFormList insertItemFormList, BindingResult result, Model model) {
 		System.out.println(insertItemFormList);
-
+		
 		if (result.hasErrors()) {
 			return toInsert(insertItemFormList, model);
 		}

@@ -115,7 +115,7 @@
 					<div class="col-sm-8">
 						<input type="text" id="brand" class="form-control" name="brand"
 							th:field="*{itemFormList[__${itemFormStat.index}__].brand}" />
-						<div th:errors="*{itemFormList[__${itemFormStat.index}__].name}" style="color: red"
+						<div th:errors="*{itemFormList[__${itemFormStat.index}__].brand}" style="color: red"
 							class="error-messages">
 						</div>
 					</div>
@@ -149,8 +149,8 @@
 					<label for="description" class="col-sm-2 control-label">description</label>
 					<div class="col-sm-8">
 						<textarea name="description" id="description" class="form-control" rows="5"
-							th:field="*{itemFormList[__${itemFormStat.index}__].conditionId}"></textarea>
-						<div th:errors="*{itemFormList[__${itemFormStat.index}__].conditionId}" style="color: red"
+							th:field="*{itemFormList[__${itemFormStat.index}__].description}"></textarea>
+						<div th:errors="*{itemFormList[__${itemFormStat.index}__].description}" style="color: red"
 							class="error-messages"></div>
 					</div>
 				</div>
