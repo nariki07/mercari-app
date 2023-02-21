@@ -11,7 +11,7 @@ public enum Condition {
 	/* 新品・未使用品 */
 	MINT("mint", 1),
 	/* 未使用品に近い */
-	NEAR_MINT("nearMint", 2),
+	NEAR_MINT("near mint", 2),
 	/* 良い */
 	GOOD("good", 3),
 	/* 悪い */

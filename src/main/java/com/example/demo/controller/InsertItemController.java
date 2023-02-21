@@ -40,8 +40,11 @@ public class InsertItemController {
 	@GetMapping("/")
 	public String toInsert(InsertItemFormList insertItemFormList, Model model) {
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
-		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
+		// 大カテゴリのリストを格納.
+		model.addAttribute("largeCategoryList", largeCategoryList); 
+		//Conditionクラスをmodelに格納.
 		model.addAttribute("conditionList",Condition.values());
+		
 		// ここからフォームを表示させるための処理.
 		// itemFormListがnullの場合のみ処理を行う.
 		if (insertItemFormList.getItemFormList() == null) {
