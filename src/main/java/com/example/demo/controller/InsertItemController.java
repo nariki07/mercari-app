@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.config.Condition;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
 import com.example.demo.form.InsertItemFormList;
@@ -39,8 +40,11 @@ public class InsertItemController {
 	@GetMapping("/")
 	public String toInsert(InsertItemFormList insertItemFormList, Model model) {
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
-		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-
+		// 大カテゴリのリストを格納.
+		model.addAttribute("largeCategoryList", largeCategoryList); 
+		//Conditionクラスをmodelに格納.
+		model.addAttribute("conditionList",Condition.values());
+		
 		// ここからフォームを表示させるための処理.
 		// itemFormListがnullの場合のみ処理を行う.
 		if (insertItemFormList.getItemFormList() == null) {
@@ -51,7 +55,7 @@ public class InsertItemController {
 			insertItemFormList.getItemFormList().add(itemData);
 			model.addAttribute("insertItemFormList", insertItemFormList);
 		}
-		return "add_test";
+		return "add";
 	}
 
 	@PostMapping("/insert")
