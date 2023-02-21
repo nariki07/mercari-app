@@ -1,6 +1,6 @@
 "use strict";
 
-$(function() {
+$(function() {　
 	//フォームの数をカウントするための変数.
 	let n = 0;
 	//番号用
@@ -65,7 +65,6 @@ $(function() {
 		if (!(b === 1)) {
 			b--
 		}
-
 		if (!(n === 0)) {
 			n--
 		}
