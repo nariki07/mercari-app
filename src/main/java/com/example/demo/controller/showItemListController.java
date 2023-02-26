@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,8 +50,8 @@ public class ShowItemListController {
 		}
 		
 		List<Category> largeCategoryList = showItemListService.showLargeCategoryList();
+		
 		model.addAttribute("largeCategoryList", largeCategoryList); // 大カテゴリのリストを格納.
-
 		// pageがnullもしくは0の場合は1をいれる.
 		if (page == null || page == 0) {
 			page = 1;
@@ -76,7 +77,7 @@ public class ShowItemListController {
 		}
 
 		List<Category> categoryList = new ArrayList<>();
-
+		
 		model.addAttribute("name", name); // 検索にかけた名前が入る.
 		model.addAttribute("category", category); // 小カテゴリのIDが入る.
 		model.addAttribute("brand", brand); // 検索にかけたブランド名が入る.
