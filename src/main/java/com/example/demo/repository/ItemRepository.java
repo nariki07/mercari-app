@@ -51,7 +51,23 @@ public class ItemRepository {
 		return itemList;
 
 	}
+	
+	/**
+	 * カテゴリIDで検索を行います.
+	 * 
+	 * @param category カテゴリID
+	 * @return 商品一覧
+	 */
+	public List<Item> findByCategory(Integer category) {
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
+				+ "WHERE category = :category;";
 
+		SqlParameterSource param = new MapSqlParameterSource().addValue("category", category);
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
+
+	}
+	
 	/**
 	 * 商品名とカテゴリIDとブランド名で検索を行う.
 	 * 
@@ -64,8 +80,8 @@ public class ItemRepository {
 		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
 				+ "WHERE name LIKE :itemSerch AND category = :category AND brand LIKE :brandSerch;";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", "%" + name + "%")
-				.addValue("category", category).addValue("brandSerch", "%" + brand + "%");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", name + "%")
+				.addValue("category", category).addValue("brandSerch", brand + "%");
 
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 
@@ -83,7 +99,7 @@ public class ItemRepository {
 		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
 				+ "WHERE name LIKE :itemSerch;";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", "%" + name + "%");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemSerch", name + "%");
 
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 
@@ -101,7 +117,7 @@ public class ItemRepository {
 		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "
 				+ "WHERE brand LIKE :brandSerch;";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("brandSerch", "%" + brand + "%");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("brandSerch", brand + "%");
 
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 
@@ -112,9 +128,9 @@ public class ItemRepository {
 	/**
 	 * 商品名とブランド名で検索を行います.
 	 * 
-	 * @param name 商品名
-	 * @param brand　ブランド名
-	 * @return　商品情報一覧
+	 * @param name  商品名
+	 * @param brand ブランド名
+	 * @return 商品情報一覧
 	 */
 	public List<Item> findByNameAndBrand(String name, String brand) {
 		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items "

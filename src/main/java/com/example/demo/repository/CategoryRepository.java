@@ -78,6 +78,7 @@ public class CategoryRepository {
 	 * @return カテゴリリスト
 	 */
 	public List<Category> findByLargeCategory(){
+		// TODO:parentにIS NULLが使用されていてindexが効かないので修正が必要.
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NULL AND name_all IS NULL";
 		List<Category> categoryList = template.query(sql,CATEGORY_ROW_MAPPER);
 		return categoryList;
