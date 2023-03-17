@@ -20,7 +20,6 @@ public class ShowItemDetailController {
 	
 	@GetMapping("/")
 	public String showdetail(Integer itemId,Model model) {
-		System.out.println(itemId);
 		Item item = showItemDetailService.showDetail(itemId);
 		Category category = showItemDetailService.showDetailCategory(item.getCategory());
 		model.addAttribute("item",item);

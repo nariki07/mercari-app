@@ -23,7 +23,25 @@ public class Item {
 	private Integer shipping;
 	/* 説明 */
 	private String description;
-
+	
+	
+	public Item() {
+		
+	}
+	
+	public Item(String name, Integer conditionId, Integer category, String brand, double price,
+			Integer shipping, String description) {
+		super();
+		
+		this.name = name;
+		this.conditionId = conditionId;
+		this.category = category;
+		this.brand = brand;
+		this.price = price;
+		this.shipping = shipping;
+		this.description = description;
+	}
+	
 	public String getName() {
 		return name;
 	}
