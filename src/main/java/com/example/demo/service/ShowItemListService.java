@@ -79,16 +79,6 @@ public class ShowItemListService {
 	}
 
 	/**
-	 * 全件検索を行うメソッド.
-	 * 
-	 * @return 商品一覧
-	 */
-	public List<Item> showAllItemList() {
-		List<Item> itemList = itemRepository.findAll();
-		return itemList;
-	}
-
-	/**
 	 * 大カテゴリの情報を取得します.
 	 * 
 	 * @return
@@ -117,16 +107,6 @@ public class ShowItemListService {
 	public List<Category> showParentIdMediumCategoryList(Integer id) {
 		List<Category> mediumCategoryList = categoryRepository.findByParentIdMediumCategory(id);
 		return mediumCategoryList;
-	}
-
-	/**
-	 * 小カテゴリの情報を取得します.
-	 * 
-	 * @return
-	 */
-	public List<Category> showSmallCategoryList() {
-		List<Category> smallCategoryList = categoryRepository.findBySmallCategory();
-		return smallCategoryList;
 	}
 
 	/**

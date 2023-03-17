@@ -59,7 +59,6 @@ public class ItemEditController {
 		}
 		
 		Item item = new Item();
-		System.out.println(insertItemForm.toString());
 		BeanUtils.copyProperties(insertItemForm, item);
 		item.setConditionId(Integer.parseInt(insertItemForm.getConditionId()));
 		item.setCategory(Integer.parseInt(insertItemForm.getCategory()));
