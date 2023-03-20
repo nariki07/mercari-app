@@ -52,11 +52,11 @@ public class ShowItemListControllerTest {
 	private CategoryRepository categoryRepository;
 
 	@MockBean
-	private ShowItemListService showItemListServiceMock; //この記述によりServiceMockの戻り値を指定できるようになる。
-	
+	private ShowItemListService showItemListServiceMock; // この記述によりServiceItemListServiceの戻り値を指定できるようになる。
+
 	@Autowired
-	private ShowItemListController showItemListController; //おそらくこの記述で依存性の注入を行っている。
-	
+	private ShowItemListController showItemListController; // おそらくこの記述で依存性の注入を行っている。
+
 	@Autowired
 	private ItemRepository itemRepository;
 
@@ -74,14 +74,15 @@ public class ShowItemListControllerTest {
 	@DisplayName("商品検索のテスト")
 	@WithMockUser(username = "田中", password = "Maeatu12")
 	public void postShowItemListHttpRequest() throws Exception {
+		
+		//現在はサービスクラスの戻り値を設定していないのでテストが失敗する.
 		Integer category = 3;
 		Category smallCategory = categoryRepository.findIdSmallCategory(category);
 		List<Item> itemList = itemRepository.findByNameAndCategoryAndBrand("MLB", 3, "47");
 		when(showItemListServiceMock.showIdSmallCategoryList(category)).thenReturn(smallCategory);
-        
+
 		MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/")
-				.contentType(MediaType.APPLICATION_JSON)
-				.param("name", request.getParameterValues("name"))
+				.contentType(MediaType.APPLICATION_JSON).param("name", request.getParameterValues("name"))
 				.param("category", request.getParameterValues("category"))
 				.param("brand", request.getParameterValues("brand"))).andExpect(status().isOk()).andReturn();
 
@@ -94,19 +95,16 @@ public class ShowItemListControllerTest {
 	@WithMockUser(username = "田中", password = "Maeatu12")
 	public void getLargeCategory() throws Exception {
 
-		List<Category> mediumCategoryList = categoryRepository.findByParentIdMediumCategory(1);				
+		List<Category> mediumCategoryList = categoryRepository.findByParentIdMediumCategory(1);
 		assertFalse(mediumCategoryList.isEmpty());
 		when(showItemListServiceMock.showParentIdMediumCategoryList(1)).thenReturn(mediumCategoryList);
-		
+
 		mockMvc.perform(post("/largeCategory").contentType(MediaType.APPLICATION_JSON).param("largeCategoryId", "1"))
 				.andExpect(status().isOk()).andExpect(content().contentType(APPLICATION_JSON_UTF8))
-				.andExpect(jsonPath("$.mediumCategoryList", hasSize(14)));	
-		
-		verify(showItemListServiceMock,times(1)).showParentIdMediumCategoryList(1);
-		
+				.andExpect(jsonPath("$.mediumCategoryList", hasSize(14)));
+
+		verify(showItemListServiceMock, times(1)).showParentIdMediumCategoryList(1);
+
 	}
-	
-	
-	
 
 }
