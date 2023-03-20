@@ -18,7 +18,7 @@ import com.example.demo.service.ShowItemListService;
 public class ShowItemListServiceTest {
 	
 	@Autowired
-	private ShowItemListService shoItemListService;
+	private ShowItemListService showItemListService;
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -56,6 +56,5 @@ public class ShowItemListServiceTest {
 		assertEquals(9,smallCategoryList.size(),"検索結果の数が一致しません。");
 		assertEquals("T-shirts",smallCategoryList.get(0).getCategoryName());
 	}
-	
 	
 }
