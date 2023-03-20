@@ -7,3 +7,4 @@ spring:
 server:
   servlet:
     context-path: /mercari-202210
+  

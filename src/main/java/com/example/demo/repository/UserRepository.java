@@ -19,6 +19,7 @@ import com.example.demo.domain.User;
  */
 @Repository
 public class UserRepository {
+	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
